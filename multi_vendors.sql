@@ -215,8 +215,8 @@ VALUES ( 101,
         'Chittagong, Bangladesh'
     ),
     (   103,
-        'Rahim Uddin',
-        'rahim@gmail.com',
+        'Karim Uddin',
+        'Karim@gmail.com',
         '01766666666',
         'Khulna, Bangladesh'
     );
@@ -237,7 +237,7 @@ VALUES (
         1,
         101,
         '2026-01-01',
-        80000,
+        75000,
         'Completed'
     ),
     (   2,
@@ -255,6 +255,8 @@ VALUES (
     );
 
 
+
+
 -- OrderItem data
 INSERT INTO
     Order_Item (id,
@@ -264,10 +266,9 @@ INSERT INTO
         unit_price,
         subtotal
     )
-VALUES (1, 1, 1002, 1, 80000, 80000),
-    (2, 2, 1001, 2 , 25000, 50000),
+VALUES (1, 1, 1001, 1, 80000, 80000),
+    (2, 2, 1002, 2 , 25000, 50000),
     (3, 3, 1001, 1, 75000, 75000);
-
 
 INSERT INTO
     Payment (id,
@@ -300,4 +301,46 @@ VALUES ( 2001,
     );
 
 
+
+
+
+
 -- Part C : DQL
+--  Show all vendors with subscription plan
+SELECT v.business_name, s.plan_name, s.price
+FROM Vendor v
+    JOIN Subscription s ON v.plan_id = s.id;
+
+
+-- 2️Find products under Electronics category
+SELECT p.product_name, p.price, p.stock_quantity
+FROM
+    Product p
+    JOIN Product_Category pc ON p.id = pc.product_id
+    JOIN Category c ON pc.category_id = c.id
+WHERE
+    c.category_name = 'Electronics';
+
+
+-- Orders placed by customer Karim Uddin
+SELECT o.id, o.order_date, o.total_amount, o.order_status
+FROM Orders o
+    JOIN Customer c ON o.customer_id = c.id
+WHERE
+    c.name = 'Karim Uddin';
+
+
+-- Payment details for order_id = 1 
+SELECT method, amount, payment_status
+FROM Payment
+WHERE order_id = 1; 
+
+
+--  Top 5 best-selling products
+SELECT p.product_name, SUM(oi.quantity) AS total_sold
+FROM Order_Item oi
+    JOIN Product p ON oi.product_id = p.id
+GROUP BY
+    p.product_name
+ORDER BY total_sold DESC
+LIMIT 5;
