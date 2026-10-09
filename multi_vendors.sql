@@ -98,6 +98,125 @@ CREATE TABLE Payment (
 
 
 -- DML Operations 
+-- subscription data
+INSERT INTO Subscription ( id, plan_name, price, duration, features )
+VALUES 
+(   1,
+    'Basic Plan',
+    999.00,
+    '1 Month',
+    'Limited Products'
+),
+(   2,
+    'Premium Plan',
+    1999.00,
+    '3 Months',
+    'Unlimited Products'
+),
+(   3,
+    'Gold Plan',
+    2999.00,
+    '6 Months',
+    'All + Priority Support'
+);
+
+
+INSERT INTO
+    Vendor (
+        id,
+        business_name,
+        contact_person,
+        email,
+        phone_number,
+        business_address,
+        plan_id
+    )
+VALUES (101,
+        'SmartTech Ltd.',
+        'Rahim Khan',
+        'rahim@gmail.com',
+        '01711111111',
+        'Dhaka, Bangladesh',
+        1
+    );
+
+
+
+--  Product data
+INSERT INTO
+    Product (id,
+        vendor_id,
+        product_name,
+        description,
+        price,
+        stock_quantity,
+        status
+    )
+VALUES (
+        1002,
+        101,
+        'Smartphone',
+        'Android Phone',
+        25000,
+        30,
+        'active'
+    ),
+    (   1001,
+        101,
+        'Laptop',
+        'Gaming Laptop',
+        75000,
+        10,
+        'active'
+    );
+
+-- Updating Laptop stock to 15
+UPDATE Product 
+SET stock_quantity = 15
+WHERE product_name = 'Laptop';
+
+
+--  Category data
+INSERT INTO
+    Category (id, category_name, description)
+VALUES ( 1,
+        'Electronics',
+        'Electronic devices'
+    );
+
+
+
+-- Product M:N Category
+INSERT INTO
+    Product_Category (product_id, category_id)
+VALUES (1001, 1),(1002, 1);
+
+
+
+-- Customer Table
+INSERT INTO
+    Customer ( id,
+        name,
+        email,
+        phone_number,
+        address
+    )
+VALUES ( 101,
+        'Atonu Roy Chowdhury',
+        'atonu@gmail.com',
+        '01744444444',
+        'Dhaka, Bangladesh'
+    ),
+    (   102,
+        'Refat Hossain',
+        'oldcustomer@gmail.com',
+        '01755555555',
+        'Chittagong, Bangladesh'
+    );
+
+
+-- Deleting example
+DELETE FROM Customer WHERE email = 'oldcustomer@gmail.com';
 
 
 
