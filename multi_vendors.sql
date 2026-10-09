@@ -1,5 +1,6 @@
 -- Active: 1791385942957@@127.0.0.1@5432@postgres
 
+-- Part A : DDL
 -- Subscription Table
 CREATE TABLE Subscription (
     id INTEGER PRIMARY KEY,
@@ -97,7 +98,7 @@ CREATE TABLE Payment (
 
 
 
--- DML Operations 
+-- Part B : DML Operations 
 -- subscription data
 INSERT INTO Subscription ( id, plan_name, price, duration, features )
 VALUES 
@@ -212,11 +213,91 @@ VALUES ( 101,
         'oldcustomer@gmail.com',
         '01755555555',
         'Chittagong, Bangladesh'
+    ),
+    (   103,
+        'Rahim Uddin',
+        'rahim@gmail.com',
+        '01766666666',
+        'Khulna, Bangladesh'
     );
 
 
 -- Deleting example
 DELETE FROM Customer WHERE email = 'oldcustomer@gmail.com';
 
+--  Orders data
+INSERT INTO
+    Orders (id,
+        customer_id,
+        order_date,
+        total_amount,
+        order_status
+    )
+VALUES (
+        1,
+        101,
+        '2026-01-01',
+        80000,
+        'Completed'
+    ),
+    (   2,
+        103,
+        '2026-01-02',
+        50000,
+        'Pending'
+    ),
+    (
+        3,
+        103,
+        '2026-01-02',
+        75000,
+        'Completed'
+    );
 
 
+-- OrderItem data
+INSERT INTO
+    Order_Item (id,
+        order_id,
+        product_id,
+        quantity,
+        unit_price,
+        subtotal
+    )
+VALUES (1, 1, 1002, 1, 80000, 80000),
+    (2, 2, 1001, 2 , 25000, 50000),
+    (3, 3, 1001, 1, 75000, 75000);
+
+
+INSERT INTO
+    Payment (id,
+        order_id,
+        method,
+        amount,
+        payment_date,
+        payment_status
+    )
+VALUES ( 2001,
+        1,
+        'Credit Card',
+        80000,
+        '2026-01-01',
+        'Paid'
+    ),
+    (   2002,
+        2,
+        'Cash on Delivery',
+        50000,
+        '2026-01-02',
+        'Pending'
+    ),
+    (   2003,
+        3,
+        'Bkash',
+        75000,
+        '2026-01-02',
+        'Paid'
+    );
+
+
+-- Part C : DQL
